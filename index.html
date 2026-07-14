@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GET KINGERED LOL</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Prevent scrollbars during bouncing */
+            background-color: #000;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif; /* Appropriate font choice */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        #container {
+            position: relative;
+            text-align: center;
+            z-index: 10;
+        }
+
+        #kinger-img {
+            max-width: 80vw;
+            max-height: 60vh;
+            border-radius: 20px;
+            box-shadow: 0 0 50px 15px rgba(255, 0, 255, 0.7);
+            animation: pulse 2s infinite alternate, spin 10s linear infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 50px 15px rgba(255, 0, 255, 0.7); }
+            100% { transform: scale(1.05); box-shadow: 0 0 80px 30px rgba(0, 255, 255, 0.9); }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        h1 {
+            font-size: clamp(3rem, 10vw, 8rem);
+            margin-top: 20px;
+            text-transform: uppercase;
+            text-shadow: 4px 4px 0px #ff0000, -4px -4px 0px #0000ff;
+            animation: flashText 0.5s infinite alternate;
+        }
+
+        @keyframes flashText {
+            0% { color: #ffff00; text-shadow: 4px 4px 0px #ff0000, -4px -4px 0px #0000ff; }
+            50% { color: #00ff00; text-shadow: 4px -4px 0px #ff00ff, -4px 4px 0px #00ffff; }
+            100% { color: #ff00ff; text-shadow: -4px 4px 0px #ffff00, 4px -4px 0px #00ff00; }
+        }
+
+        .bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            background-size: 400%;
+            animation: rainbowBg 10s linear infinite;
+            opacity: 0.3; /* Keep it subtle enough to see the image */
+        }
+
+        @keyframes rainbowBg {
+            0% { background-position: 0 0; }
+            50% { background-position: 100% 0; }
+            100% { background-position: 0 0; }
+        }
+
+        .floater {
+            position: absolute;
+            font-size: 2rem;
+            font-weight: bold;
+            color: rgba(255,255,255,0.5);
+            pointer-events: none;
+            z-index: 5;
+            animation: floatUp 5s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-animation"></div>
+
+    <div id="container">
+        <!-- The image is referenced here, fallback text included -->
+        <img id="kinger-img" alt="Kinger with Man Face" src="kinger.png" onerror="this.src='https://placehold.co/400x600/purple/white?text=Kinger+Missing'">
+        <h1>GET KINGERED LOL</h1>
+    </div>
+
+    <script>
+        // Function to create random floating 'lol' texts
+        function createFloater() {
+            const floater = document.createElement('div');
+            floater.classList.add('floater');
+            floater.innerText = 'lol';
+
+            // Randomize starting position and animation duration slightly
+            floater.style.left = Math.random() * 100 + 'vw';
+            floater.style.animationDuration = (Math.random() * 3 + 3) + 's'; // 3s to 6s
+            
+            // Randomize color
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+            floater.style.color = colors[Math.floor(Math.random() * colors.length)];
+
+            document.body.appendChild(floater);
+
+            // Remove element after animation to prevent DOM bloat
+            setTimeout(() => {
+                floater.remove();
+            }, 6000); 
+        }
+
+        // Generate a new floater every 300ms
+        setInterval(createFloater, 300);
+        
+        // Create some initial floaters so the screen isn't empty immediately
+        for(let i=0; i<10; i++) {
+             setTimeout(createFloater, i*100);
+        }
+    </script>
+</body>
+</html>
